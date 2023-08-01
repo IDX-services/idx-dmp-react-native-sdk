@@ -1,6 +1,6 @@
 {
   "name": "react-native-idx-dmp-sdk",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "IDX DMP react-native SDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
