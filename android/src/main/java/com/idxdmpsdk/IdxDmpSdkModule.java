@@ -56,7 +56,7 @@ public class IdxDmpSdkModule extends ReactContextBaseJavaModule {
       eventRequestProperties.author = params.getString("author");
       eventRequestProperties.category = params.getString("category");
       eventRequestProperties.description = params.getString("description");
-      eventRequestProperties.tags = Arrays.asList(params.getString("description").split(","));
+      eventRequestProperties.tags = Arrays.asList(params.getString("tags").split(","));
 
       dataManagerProvider.sendEventRequest(eventRequestProperties);
 
