@@ -50,18 +50,18 @@ public class IdxDmpSdkModule extends ReactContextBaseJavaModule {
     try {
       EventRequestProperties eventRequestProperties = new EventRequestProperties();
 
-      eventRequestProperties.url = params.getString("url");
-      eventRequestProperties.title = params.getString("title");
-      eventRequestProperties.domain = params.getString("domain");
-      eventRequestProperties.author = params.getString("author");
-      eventRequestProperties.category = params.getString("category");
-      eventRequestProperties.description = params.getString("description");
-      eventRequestProperties.tags = Arrays.asList(params.getString("tags").split(","));
+      eventRequestProperties.setUrl(params.getString("url"));
+      eventRequestProperties.setTitle(params.getString("title"));
+      eventRequestProperties.setDomain(params.getString("domain"));
+      eventRequestProperties.setAuthor(params.getString("author"));
+      eventRequestProperties.setCategory(params.getString("category"));
+      eventRequestProperties.setDescription(params.getString("description"));
+      eventRequestProperties.setTags(Arrays.asList(params.getString("tags").split(",")));
 
       dataManagerProvider.sendEventRequest(eventRequestProperties);
 
       promise.resolve(true);
-    } catch (IOException e) {
+    } catch (IOException | InterruptedException e) {
       promise.resolve(false);
     }
   }
