@@ -50,7 +50,7 @@ export default function App() {
   );
 
   const handleInitSdk = React.useCallback(() => {
-    initSdk(PROVIDER_ID).then(setIsReady);
+    initSdk(PROVIDER_ID, 'My react-native example app').then(setIsReady);
   }, []);
 
   const handleSendEvent = React.useCallback(() => {

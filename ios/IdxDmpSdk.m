@@ -3,6 +3,7 @@
 @interface RCT_EXTERN_MODULE(IdxDmpSdk, NSObject)
 
 RCT_EXTERN_METHOD(initSdk:(NSString)providerId
+                 monitoringLabel:(NSString)monitoringLabel
                  withResolver:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 

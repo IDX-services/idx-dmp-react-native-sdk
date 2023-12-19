@@ -37,10 +37,11 @@ public class IdxDmpSdkModule extends ReactContextBaseJavaModule {
   // Example method
   // See https://reactnative.dev/docs/native-modules-android
   @ReactMethod
-  public void initSdk(String providerId, Promise promise) {
+  public void initSdk(String providerId, String monitoringLabel, Promise promise) {
     dataManagerProvider = new DataManagerProvider(
       applicationContext,
-      providerId
+      providerId,
+      monitoringLabel
     );
     promise.resolve(true);
   }

@@ -27,8 +27,11 @@ const IdxDmpSdk = NativeModules.IdxDmpSdk
       }
     );
 
-export function initSdk(providerId: string): Promise<boolean> {
-  return IdxDmpSdk.initSdk(providerId);
+export function initSdk(
+  providerId: string,
+  monitoringLabel?: string
+): Promise<boolean> {
+  return IdxDmpSdk.initSdk(providerId, monitoringLabel);
 }
 
 export function sendEvent(

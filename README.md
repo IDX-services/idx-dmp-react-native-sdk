@@ -23,7 +23,7 @@ import {
 const PROVIDER_ID = '00000000-0000-0000-0000-000000000000';
 
 // Init sdk before any other events
-initSdk(PROVIDER_ID).then(() => {
+initSdk(PROVIDER_ID, 'My app name').then(() => {
   // setIsReady
 });
 
