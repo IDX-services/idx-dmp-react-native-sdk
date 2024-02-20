@@ -50,6 +50,19 @@ class IdxDmpSdk: NSObject {
     resolve(dmp.getDefinitionIds())
   }
 
+  @objc(getUserId:withRejecter:)
+  func getUserId(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
+    guard let dmp = self.dmp else {
+      return reject(nil, nil, nil)
+    }
+
+    guard let userId = dmp.getUserId() else {
+      return resolve("")
+    }
+
+    resolve(userId)
+  }
+
   @objc(resetUserState:withRejecter:)
   func resetUserState(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
     guard let dmp = self.dmp else {

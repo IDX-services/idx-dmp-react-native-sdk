@@ -73,6 +73,11 @@ public class IdxDmpSdkModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public void getUserId(Promise promise) {
+    promise.resolve(dataManagerProvider.getUserId());
+  }
+
+  @ReactMethod
   public void resetUserState(Promise promise) {
     dataManagerProvider.resetUserState();
     promise.resolve(true);

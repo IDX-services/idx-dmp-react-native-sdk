@@ -14,6 +14,7 @@ yarn add react-native-idx-dmp-sdk
 import {
   initSdk,
   sendEvent,
+  getUserId,
   getDefinitionIds,
   resetUserState,
 } from 'react-native-idx-dmp-sdk';
@@ -42,8 +43,9 @@ const pageState = {
 sendEvent(pageState).then(() => {
   // event is completed
   const audiences = getDefinitionIds() // return calculated audiences
+  const userId = getUserId() // return current user id
   const adRequstData = {
-    customData: `dxseg=${audiences}`,
+    customData: `dxseg=${audiences}&dxu=${userId}&permutive=${userId}`,
   }
   
 })

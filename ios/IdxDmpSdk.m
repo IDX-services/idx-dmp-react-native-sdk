@@ -14,6 +14,9 @@ RCT_EXTERN_METHOD(sendEvent:(NSDictionary)params
 RCT_EXTERN_METHOD(getDefinitionIds:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(getUserId:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(resetUserState:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 
