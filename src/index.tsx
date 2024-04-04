@@ -10,6 +10,20 @@ interface IEventParams {
   tags: string;
 }
 
+interface WebViewSdkMessageData {
+  userId: string;
+  definitionIdsAsString: string;
+}
+
+interface WebViewSdkNativeEvent {
+  nativeEvent: { data: string };
+}
+
+interface IAdRequestParams {
+  userId: string;
+  definitionIds: string;
+}
+
 interface IIdxDmpSdk {
   initSdk: (providerId: string, monitoringLabel?: string) => Promise<boolean>;
   sendEvent: (data: IEventParams) => Promise<boolean>;
@@ -23,6 +37,11 @@ const LINKING_ERROR =
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
+
+function getAdRequestData(params: IAdRequestParams): string {
+  const { userId = '', definitionIds = '' } = params;
+  return `dxseg=${definitionIds}&dxu=${userId}&permutive=${userId}`;
+}
 
 const IdxDmpSdk: IIdxDmpSdk = NativeModules.IdxDmpSdk
   ? NativeModules.IdxDmpSdk
@@ -78,4 +97,43 @@ export function getUserId(): Promise<string> {
 
 export function resetUserState(): Promise<void> {
   return IdxDmpSdk.resetUserState();
+}
+
+export async function getCustomAdTargeting(): Promise<string> {
+  try {
+    const userId = await getUserId();
+    const definitionIds = await getDefinitionIds();
+
+    return getAdRequestData({ userId, definitionIds });
+  } catch {
+    return '';
+  }
+}
+
+export class DMPWebViewConnector {
+  private userId = '';
+  private definitionIds = '';
+
+  handleMessage = (value: WebViewSdkNativeEvent): void => {
+    try {
+      const parsedData: WebViewSdkMessageData = JSON.parse(
+        value?.nativeEvent?.data
+      );
+      this.userId = parsedData?.userId ?? '';
+      this.definitionIds = parsedData?.definitionIdsAsString ?? '';
+    } catch {}
+  };
+
+  getUserId = (): string => {
+    return this.userId ?? '';
+  };
+
+  getDefinitionIds = (): string => {
+    return this.definitionIds ?? '';
+  };
+
+  getCustomAdTargeting = (): string => {
+    const { userId = '', definitionIds = '' } = this;
+    return getAdRequestData({ userId, definitionIds });
+  };
 }

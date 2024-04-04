@@ -73,7 +73,7 @@ PODS:
   - hermes-engine (0.72.1):
     - hermes-engine/Pre-built (= 0.72.1)
   - hermes-engine/Pre-built (0.72.1)
-  - IdxDmpSdk (2.1.0)
+  - IdxDmpSdk (2.3.1)
   - libevent (2.1.12)
   - OpenSSL-Universal (1.1.1100)
   - RCT-Folly (2021.07.22.00):
@@ -375,8 +375,11 @@ PODS:
   - React-jsinspector (0.72.1)
   - React-logger (0.72.1):
     - glog
-  - react-native-idx-dmp-sdk (2.1.0):
-    - IdxDmpSdk (~> 2.1.0)
+  - react-native-idx-dmp-sdk (2.3.0):
+    - IdxDmpSdk (~> 2.3.1)
+    - RCT-Folly (= 2021.07.22.00)
+    - React-Core
+  - react-native-webview (13.8.2):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - React-NativeModulesApple (0.72.1):
@@ -541,6 +544,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-idx-dmp-sdk (from `../..`)
+  - react-native-webview (from `../node_modules/react-native-webview`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -624,6 +628,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-idx-dmp-sdk:
     :path: "../.."
+  react-native-webview:
+    :path: "../node_modules/react-native-webview"
   React-NativeModulesApple:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios"
   React-perflogger:
@@ -678,7 +684,7 @@ SPEC CHECKSUMS:
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 9df83855a0fd15ef8eb61694652bae636b0c466e
-  IdxDmpSdk: 85f2ca7e6883f62af5d6ef378e2e970f17db190e
+  IdxDmpSdk: e44cb90e04d787ead6917bf6e49c21b1a5b59799
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
@@ -696,7 +702,8 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 184eae1ecdedc7a083194bd9ff809c93f08fd34c
   React-jsinspector: d0b5bfd1085599265f4212034321e829bdf83cc0
   React-logger: b8103c9b04e707b50cdd2b1aeb382483900cbb37
-  react-native-idx-dmp-sdk: 7cfceedaaf67f37733dca5326397eca6ee658416
+  react-native-idx-dmp-sdk: 191c36bada38fc2921e6b874851fb99705b87f87
+  react-native-webview: 19aba9db98e183484969202c1181a00159b7724b
   React-NativeModulesApple: 4f31a812364443cee6ef768d256c594ad3b20f53
   React-perflogger: 3d501f34c8d4b10cb75f348e43591765788525ad
   React-RCTActionSheet: f5335572c979198c0c3daff67b07bd1ad8370c1d
@@ -720,4 +727,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: eb8f74cd358f83bb497f6f388562ab17ff060cbd
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.15.2

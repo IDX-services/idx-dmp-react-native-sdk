@@ -14,8 +14,7 @@ yarn add react-native-idx-dmp-sdk
 import {
   initSdk,
   sendEvent,
-  getUserId,
-  getDefinitionIds,
+  getCustomAdTargeting,
   resetUserState,
 } from 'react-native-idx-dmp-sdk';
 
@@ -40,15 +39,37 @@ const pageState = {
   tags: 'tag1,tag2,tag3',
 }
 
-sendEvent(pageState).then(() => {
+sendEvent(pageState).then(async () => {
   // event is completed
-  const audiences = getDefinitionIds() // return calculated audiences
-  const userId = getUserId() // return current user id
   const adRequstData = {
-    customData: `dxseg=${audiences}&dxu=${userId}&permutive=${userId}`,
+    customData: await getCustomAdTargeting(),
   }
-  
+  // Send Ad request with adRequstData
 })
+```
+
+## Web View connector
+
+```js
+import { WebView } from 'react-native-webview';
+import { DMPWebViewConnector } from 'react-native-idx-dmp-sdk';
+
+// ...
+
+const webViewConnector = new DMPWebViewConnector();
+
+// ...
+
+<WebView onMessage={webViewConnector.handleMessage} />
+
+// ...
+
+const showAd = () => {
+  const adRequstData = {
+    customData: webViewConnector.getCustomAdTargeting(),
+  }
+  // Send Ad request with adRequstData
+}
 ```
 
 ## License

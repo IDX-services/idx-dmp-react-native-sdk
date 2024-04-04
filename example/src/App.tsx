@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import {
+  Alert,
   StyleSheet,
   Text,
   TextInput,
@@ -13,8 +14,9 @@ import {
 import {
   initSdk,
   sendEvent,
-  getDefinitionIds,
+  getCustomAdTargeting,
   resetUserState,
+  DMPWebViewConnector,
 } from 'react-native-idx-dmp-sdk';
 // import mobileAds, {
 //   GAMBannerAd,
@@ -22,12 +24,21 @@ import {
 //   BannerAdSize,
 //   TestIds,
 // } from 'react-native-google-mobile-ads';
+import { WebView } from 'react-native-webview';
 
 const PROVIDER_ID = 'a5beb245-2949-4a76-95f5-bddfc2ec171c';
 
+const webViewConnector = new DMPWebViewConnector();
+
 export default function App() {
+  const webviewRef = React.useRef<WebView>();
+  const [webviewUrl, setWebviewUrl] = React.useState<string>(
+    'https://trmnlsnk.blogspot.com/2022/10/thrid-dmp.html?enableDmpPublisherDebug=true'
+  );
+  const [webviewCurrentUrl, setWebviewCurrentUrl] =
+    React.useState<string>(webviewUrl);
   const [isReady, setIsReady] = React.useState<boolean>(false);
-  const [definitionIds, setDefinitionIds] = React.useState<string>('');
+  const [adRequestData, setAdRequestData] = React.useState<string>('');
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
   const [formState, setFormState] = React.useState({
     url: 'https://www.ynet.co.il/home/0,7340,L-8,00.html',
@@ -62,11 +73,11 @@ export default function App() {
     sendEvent(formState)
       .then(async () => {
         const data = await new Promise((resolve) => {
-          setTimeout(async () => resolve(await getDefinitionIds()), 500);
+          setTimeout(async () => resolve(await getCustomAdTargeting()), 500);
         });
         return data as string;
       })
-      .then(setDefinitionIds)
+      .then(setAdRequestData)
       .then(() => {
         setIsSubmitting(false);
         // mobileAds()
@@ -99,6 +110,43 @@ export default function App() {
     }
   }, []);
 
+  const handleOpenUrl = React.useCallback(() => {
+    try {
+      setWebviewCurrentUrl(webviewUrl);
+      webviewRef.current?.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  }, [webviewRef, webviewUrl]);
+
+  const handleChangeWebviewUrl = React.useCallback(
+    (value: NativeSyntheticEvent<TextInputChangeEventData>) => {
+      try {
+        setWebviewUrl(value.nativeEvent.text ?? '');
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    []
+  );
+
+  const handleShowWebviewDebug = React.useCallback(() => {
+    try {
+      Alert.alert(
+        'Debug Info',
+        `Ad Request Data: ${webViewConnector.getCustomAdTargeting()}`,
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+        ]
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
   return (
     <ScrollView
       style={styles.scrollView}
@@ -107,7 +155,9 @@ export default function App() {
       <Text style={[styles.text, !isReady ? styles.textDanger : {}]}>
         {isReady ? 'SDK IS READY!' : 'SDK IS NOT INIT'}
       </Text>
-      <Text style={styles.text}>Audiences: {definitionIds || 'NULL'}</Text>
+      <Text style={styles.text}>
+        Ad Request Data: {adRequestData || 'NULL'}
+      </Text>
       <TextInput
         style={styles.textInput}
         editable={!isSubmitting}
@@ -183,6 +233,35 @@ export default function App() {
           },
         }}
       /> */}
+      <WebView
+        // @ts-ignore-next-line
+        ref={webviewRef}
+        source={{
+          uri: webviewCurrentUrl,
+        }}
+        style={styles.webView}
+        onMessage={webViewConnector.handleMessage}
+      />
+      <TextInput
+        style={styles.textInput}
+        editable={!isSubmitting}
+        value={webviewUrl}
+        onChange={handleChangeWebviewUrl}
+      />
+      <TouchableOpacity
+        style={styles.button}
+        disabled={isSubmitting}
+        onPress={handleOpenUrl}
+      >
+        <Text style={styles.buttonText}>Open URL</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        disabled={isSubmitting}
+        onPress={handleShowWebviewDebug}
+      >
+        <Text style={styles.buttonText}>Show debug</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -194,6 +273,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     minHeight: '100%',
     padding: 16,
+    backgroundColor: '#white',
   },
   text: {
     color: 'gray',
@@ -204,12 +284,14 @@ const styles = StyleSheet.create({
     color: '#dc3545',
   },
   textInput: {
+    color: 'black',
     borderWidth: 1,
     borderColor: 'green',
     borderRadius: 4,
     marginBottom: 8,
     paddingVertical: 8,
     paddingHorizontal: 4,
+    backgroundColor: '#white',
   },
   footer: {
     marginTop: 'auto',
@@ -227,5 +309,10 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     textAlign: 'center',
+  },
+  webView: {
+    height: 512,
+    marginTop: 24,
+    marginBottom: 24,
   },
 });
