@@ -9,6 +9,7 @@ import {
   type NativeSyntheticEvent,
   type TextInputChangeEventData,
   ScrollView,
+  SafeAreaView,
   View,
 } from 'react-native';
 import {
@@ -26,8 +27,6 @@ import {
 // } from 'react-native-google-mobile-ads';
 import { WebView } from 'react-native-webview';
 
-const PROVIDER_ID = 'a5beb245-2949-4a76-95f5-bddfc2ec171c';
-
 const webViewConnector = new DMPWebViewConnector();
 
 export default function App() {
@@ -41,7 +40,8 @@ export default function App() {
   const [adRequestData, setAdRequestData] = React.useState<string>('');
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
   const [formState, setFormState] = React.useState({
-    url: 'https://www.ynet.co.il/home/0,7340,L-8,00.html',
+    provider: 'a5beb245-2949-4a76-95f5-bddfc2ec171c',
+    url: 'https://www.ynet.co.il/xtest/0,7340,L-8,00.html',
     title: 'IDX News Site - IDX',
     domain: 'https://www.ynet.co.il',
     author: 'IDX',
@@ -53,16 +53,17 @@ export default function App() {
   const handleChangeInput = React.useCallback(
     (name: string) =>
       (value: NativeSyntheticEvent<TextInputChangeEventData>) => {
+        const text = value.nativeEvent.text ?? '';
         setFormState((prevValue) => {
-          return { ...prevValue, [name]: value.nativeEvent.text ?? '' };
+          return { ...prevValue, [name]: text };
         });
       },
     []
   );
 
   const handleInitSdk = React.useCallback(() => {
-    initSdk(PROVIDER_ID, 'My react-native example app').then(setIsReady);
-  }, []);
+    initSdk(formState.provider, 'My react-native example app').then(setIsReady);
+  }, [formState.provider]);
 
   const handleSendEvent = React.useCallback(() => {
     if (!isReady) {
@@ -71,12 +72,7 @@ export default function App() {
 
     setIsSubmitting(true);
     sendEvent(formState)
-      .then(async () => {
-        const data = await new Promise((resolve) => {
-          setTimeout(async () => resolve(await getCustomAdTargeting()), 500);
-        });
-        return data as string;
-      })
+      .then(getCustomAdTargeting)
       .then(setAdRequestData)
       .then(() => {
         setIsSubmitting(false);
@@ -148,132 +144,143 @@ export default function App() {
   }, []);
 
   return (
-    <ScrollView
-      style={styles.scrollView}
-      contentContainerStyle={styles.scrollContainer}
-    >
-      <Text style={[styles.text, !isReady ? styles.textDanger : {}]}>
-        {isReady ? 'SDK IS READY!' : 'SDK IS NOT INIT'}
-      </Text>
-      <Text style={styles.text}>
-        Ad Request Data: {adRequestData || 'NULL'}
-      </Text>
-      <TextInput
-        style={styles.textInput}
-        editable={!isSubmitting}
-        value={formState.url}
-        onChange={handleChangeInput('url')}
-      />
-      <TextInput
-        style={styles.textInput}
-        editable={!isSubmitting}
-        value={formState.title}
-        onChange={handleChangeInput('title')}
-      />
-      <TextInput
-        style={styles.textInput}
-        editable={!isSubmitting}
-        value={formState.domain}
-        onChange={handleChangeInput('domain')}
-      />
-      <TextInput
-        style={styles.textInput}
-        editable={!isSubmitting}
-        value={formState.author}
-        onChange={handleChangeInput('author')}
-      />
-      <TextInput
-        style={styles.textInput}
-        editable={!isSubmitting}
-        value={formState.category}
-        onChange={handleChangeInput('category')}
-      />
-      <TextInput
-        style={styles.textInput}
-        editable={!isSubmitting}
-        value={formState.description}
-        onChange={handleChangeInput('description')}
-      />
-      <TextInput
-        style={styles.textInput}
-        editable={!isSubmitting}
-        value={formState.tags}
-        onChange={handleChangeInput('tags')}
-      />
-      <View style={styles.footer}>
+    <SafeAreaView style={styles.safeAreaView}>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContainer}
+      >
+        <Text style={[styles.text, !isReady ? styles.textDanger : {}]}>
+          {isReady ? 'SDK IS READY!' : 'SDK IS NOT INIT'}
+        </Text>
+        <Text style={styles.text}>
+          Ad Request Data: {adRequestData || 'NULL'}
+        </Text>
+        <TextInput
+          style={styles.textInput}
+          editable={!isSubmitting}
+          value={formState.provider}
+          onChange={handleChangeInput('provider')}
+        />
+        <TextInput
+          style={styles.textInput}
+          editable={!isSubmitting}
+          value={formState.url}
+          onChange={handleChangeInput('url')}
+        />
+        <TextInput
+          style={styles.textInput}
+          editable={!isSubmitting}
+          value={formState.title}
+          onChange={handleChangeInput('title')}
+        />
+        <TextInput
+          style={styles.textInput}
+          editable={!isSubmitting}
+          value={formState.domain}
+          onChange={handleChangeInput('domain')}
+        />
+        <TextInput
+          style={styles.textInput}
+          editable={!isSubmitting}
+          value={formState.author}
+          onChange={handleChangeInput('author')}
+        />
+        <TextInput
+          style={styles.textInput}
+          editable={!isSubmitting}
+          value={formState.category}
+          onChange={handleChangeInput('category')}
+        />
+        <TextInput
+          style={styles.textInput}
+          editable={!isSubmitting}
+          value={formState.description}
+          onChange={handleChangeInput('description')}
+        />
+        <TextInput
+          style={styles.textInput}
+          editable={!isSubmitting}
+          value={formState.tags}
+          onChange={handleChangeInput('tags')}
+        />
+        <View style={styles.footer}>
+          <TouchableOpacity
+            style={styles.button}
+            disabled={isSubmitting}
+            onPress={handleInitSdk}
+          >
+            <Text style={styles.buttonText}>Init sdk</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            disabled={isSubmitting}
+            onPress={handleSendEvent}
+          >
+            <Text style={styles.buttonText}>Send event</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, styles.buttonError]}
+            disabled={isSubmitting}
+            onPress={handleResetState}
+          >
+            <Text style={styles.buttonText}>Reset state</Text>
+          </TouchableOpacity>
+        </View>
+        {/* <GAMBannerAd
+          unitId={TestIds.BANNER}
+          sizes={[BannerAdSize.ANCHORED_ADAPTIVE_BANNER]}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+            serverSideVerificationOptions: {
+              customData: 'dxseg=xaxwaxwax',
+            },
+          }}
+        /> */}
+        <WebView
+          // @ts-ignore-next-line
+          ref={webviewRef}
+          source={{
+            uri: webviewCurrentUrl,
+          }}
+          style={styles.webView}
+          onMessage={webViewConnector.handleMessage}
+        />
+        <TextInput
+          style={styles.textInput}
+          editable={!isSubmitting}
+          value={webviewUrl}
+          onChange={handleChangeWebviewUrl}
+        />
         <TouchableOpacity
           style={styles.button}
           disabled={isSubmitting}
-          onPress={handleInitSdk}
+          onPress={handleOpenUrl}
         >
-          <Text style={styles.buttonText}>Init sdk</Text>
+          <Text style={styles.buttonText}>Open URL</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           disabled={isSubmitting}
-          onPress={handleSendEvent}
+          onPress={handleShowWebviewDebug}
         >
-          <Text style={styles.buttonText}>Send event</Text>
+          <Text style={styles.buttonText}>Show debug</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.button, styles.buttonError]}
-          disabled={isSubmitting}
-          onPress={handleResetState}
-        >
-          <Text style={styles.buttonText}>Reset state</Text>
-        </TouchableOpacity>
-      </View>
-      {/* <GAMBannerAd
-        unitId={TestIds.BANNER}
-        sizes={[BannerAdSize.ANCHORED_ADAPTIVE_BANNER]}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true,
-          serverSideVerificationOptions: {
-            customData: 'dxseg=xaxwaxwax',
-          },
-        }}
-      /> */}
-      <WebView
-        // @ts-ignore-next-line
-        ref={webviewRef}
-        source={{
-          uri: webviewCurrentUrl,
-        }}
-        style={styles.webView}
-        onMessage={webViewConnector.handleMessage}
-      />
-      <TextInput
-        style={styles.textInput}
-        editable={!isSubmitting}
-        value={webviewUrl}
-        onChange={handleChangeWebviewUrl}
-      />
-      <TouchableOpacity
-        style={styles.button}
-        disabled={isSubmitting}
-        onPress={handleOpenUrl}
-      >
-        <Text style={styles.buttonText}>Open URL</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        disabled={isSubmitting}
-        onPress={handleShowWebviewDebug}
-      >
-        <Text style={styles.buttonText}>Show debug</Text>
-      </TouchableOpacity>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1,
+  },
   scrollView: {
     flex: 1,
   },
   scrollContainer: {
     minHeight: '100%',
     padding: 16,
-    backgroundColor: '#white',
+    backgroundColor: 'white',
   },
   text: {
     color: 'gray',
@@ -291,7 +298,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     paddingVertical: 8,
     paddingHorizontal: 4,
-    backgroundColor: '#white',
+    backgroundColor: 'white',
   },
   footer: {
     marginTop: 'auto',
