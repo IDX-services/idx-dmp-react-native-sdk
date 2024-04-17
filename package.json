@@ -1,6 +1,6 @@
 {
   "name": "react-native-idx-dmp-sdk",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "IDX DMP react-native SDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -41,13 +41,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/Brainway-LTD/idx-dmp-react-native-sdk/",
-  "author": "Brainway LTD <pavel@id-x.co.il> (https://brainway.co.il/)",
+  "repository": "https://github.com/IDX-services/idx-dmp-react-native-sdk/",
+  "author": "IDX LTD <pavel@id-x.co.il> (https://www.id-x.co.il/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Brainway-LTD/idx-dmp-react-native-sdk//issues"
+    "url": "https://github.com/IDX-services/idx-dmp-react-native-sdk//issues"
   },
-  "homepage": "https://github.com/Brainway-LTD/idx-dmp-react-native-sdk/#readme",
+  "homepage": "https://github.com/IDX-services/idx-dmp-react-native-sdk/#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

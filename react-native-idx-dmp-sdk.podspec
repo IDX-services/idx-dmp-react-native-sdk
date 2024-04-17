@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.authors      = package["author"]
 
   s.platforms    = { :ios => "12.0" }
-  s.source       = { :git => "https://github.com/Brainway-LTD/idx-dmp-react-native-sdk/.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/IDX-services/idx-dmp-react-native-sdk/.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
 
@@ -39,5 +39,5 @@ Pod::Spec.new do |s|
     end
   end
 
-  s.dependency "IdxDmpSdk", "~> 2.3.2"
+  s.dependency "IdxDmpSdk", "~> 2.3.3"
 end
