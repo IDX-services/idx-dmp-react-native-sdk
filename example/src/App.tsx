@@ -27,7 +27,10 @@ import {
 // } from 'react-native-google-mobile-ads';
 import { WebView } from 'react-native-webview';
 
-const webViewConnector = new DMPWebViewConnector();
+const webViewConnector = new DMPWebViewConnector(
+  'My react-native example app',
+  'v1.1.1'
+);
 
 export default function App() {
   const webviewRef = React.useRef<WebView>();
@@ -62,7 +65,9 @@ export default function App() {
   );
 
   const handleInitSdk = React.useCallback(() => {
-    initSdk(formState.provider, 'My react-native example app').then(setIsReady);
+    initSdk(formState.provider, 'My react-native example app', 'v1.1.1').then(
+      setIsReady
+    );
   }, [formState.provider]);
 
   const handleSendEvent = React.useCallback(() => {
@@ -243,6 +248,7 @@ export default function App() {
             uri: webviewCurrentUrl,
           }}
           style={styles.webView}
+          injectedJavaScriptBeforeContentLoaded={webViewConnector.getSdkMetaData()}
           onMessage={webViewConnector.handleMessage}
         />
         <TextInput

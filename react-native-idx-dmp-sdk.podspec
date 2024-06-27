@@ -39,5 +39,5 @@ Pod::Spec.new do |s|
     end
   end
 
-  s.dependency "IdxDmpSdk", "~> 2.4.0"
+  s.dependency "IdxDmpSdk", "~> 2.4.5"
 end

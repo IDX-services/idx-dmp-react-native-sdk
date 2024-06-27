@@ -8,6 +8,15 @@ IDX DMP react-native SDK
 yarn add react-native-idx-dmp-sdk
 ```
 
+## App configuration
+
+Add new key and value to `Info.plist` file
+
+```xml
+<key>NSUserTrackingUsageDescription</key>
+<string>It makes our adwords more compatibility with your interests</string>
+```
+
 ## Usage
 
 ```js
@@ -23,7 +32,7 @@ import {
 const PROVIDER_ID = '00000000-0000-0000-0000-000000000000';
 
 // Init sdk before any other events
-initSdk(PROVIDER_ID, 'My app name').then(() => {
+initSdk(PROVIDER_ID, 'My app name', '1.0.0').then(() => {
   // setIsReady
 });
 
@@ -56,11 +65,14 @@ import { DMPWebViewConnector } from 'react-native-idx-dmp-sdk';
 
 // ...
 
-const webViewConnector = new DMPWebViewConnector();
+const webViewConnector = new DMPWebViewConnector('My app name', '1.0.0');
 
 // ...
 
-<WebView onMessage={webViewConnector.handleMessage} />
+<WebView
+  injectedJavaScriptBeforeContentLoaded={webViewConnector.getSdkMetaData()}
+  onMessage={webViewConnector.handleMessage}
+/>
 
 // ...
 

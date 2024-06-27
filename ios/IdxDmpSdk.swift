@@ -5,9 +5,9 @@ import struct IdxDmpSdk.EventRequestPropertiesStruct
 class IdxDmpSdk: NSObject {
   var dmp: DataManagerProvider?
 
-  @objc(initSdk:monitoringLabel:withResolver:withRejecter:)
-  func initSdk(providerId: String, monitoringLabel: String?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
-    self.dmp = DataManagerProvider(providerId: providerId, monitoringLabel: monitoringLabel) { error in
+  @objc(initSdk:appName:appVersion:withResolver:withRejecter:)
+  func initSdk(providerId: String, appName: String, appVersion: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+    self.dmp = DataManagerProvider(providerId: providerId, appName: appName, appVersion: appVersion) { error in
       if (error != nil) {
         reject(nil, nil, nil)
       }

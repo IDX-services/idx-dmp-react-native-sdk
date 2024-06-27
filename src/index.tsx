@@ -11,8 +11,8 @@ interface IEventParams {
 }
 
 interface WebViewSdkMessageData {
-  userId: string;
-  definitionIdsAsString: string;
+  userId?: string;
+  definitionIdsAsString?: string;
 }
 
 interface WebViewSdkNativeEvent {
@@ -24,8 +24,19 @@ interface IAdRequestParams {
   definitionIds: string;
 }
 
+interface ISdkMetaData {
+  sdkName: string;
+  sdkVer: string | number;
+  appName: string;
+  appVer: string | number;
+}
+
 interface IIdxDmpSdk {
-  initSdk: (providerId: string, monitoringLabel?: string) => Promise<boolean>;
+  initSdk: (
+    providerId: string,
+    appName: string,
+    appVersion: string
+  ) => Promise<boolean>;
   sendEvent: (data: IEventParams) => Promise<boolean>;
   getDefinitionIds: () => Promise<string>;
   getUserId: () => Promise<string>;
@@ -43,6 +54,8 @@ function getAdRequestData(params: IAdRequestParams): string {
   return `dxseg=${definitionIds}&dxu=${userId}&permutive=${userId}`;
 }
 
+const SDK_VERSION = '2.4.5';
+
 const IdxDmpSdk: IIdxDmpSdk = NativeModules.IdxDmpSdk
   ? NativeModules.IdxDmpSdk
   : new Proxy(
@@ -56,9 +69,14 @@ const IdxDmpSdk: IIdxDmpSdk = NativeModules.IdxDmpSdk
 
 export function initSdk(
   providerId: string,
-  monitoringLabel?: string
+  appName: string,
+  appVersion: string
 ): Promise<boolean> {
-  return IdxDmpSdk.initSdk(providerId, monitoringLabel);
+  return IdxDmpSdk.initSdk(
+    providerId,
+    `REACT-NATIVE CORE v${SDK_VERSION} for APP: ${appName}`,
+    appVersion
+  );
 }
 
 export function sendEvent(
@@ -114,6 +132,8 @@ export class DMPWebViewConnector {
   private userId = '';
   private definitionIds = '';
 
+  constructor(private appName: string, private appVersion: string) {}
+
   handleMessage = (value: WebViewSdkNativeEvent): void => {
     try {
       const parsedData: WebViewSdkMessageData = JSON.parse(
@@ -135,5 +155,22 @@ export class DMPWebViewConnector {
   getCustomAdTargeting = (): string => {
     const { userId = '', definitionIds = '' } = this;
     return getAdRequestData({ userId, definitionIds });
+  };
+
+  getSdkMetaData = (): string => {
+    const result: ISdkMetaData = {
+      sdkName: 'REACT-NATIVE DMP WEB CONNECTOR SDK',
+      sdkVer: SDK_VERSION,
+      appName: this.appName,
+      appVer: this.appVersion,
+    };
+
+    return `
+      window.dmpsdk = {
+        properties: {
+          sdkMetaData: ${JSON.stringify(result)},
+        },
+      }
+    `;
   };
 }
