@@ -54,7 +54,7 @@ function getAdRequestData(params: IAdRequestParams): string {
   return `dxseg=${definitionIds}&dxu=${userId}&permutive=${userId}`;
 }
 
-const SDK_VERSION = '2.4.5';
+const SDK_VERSION = '2.4.6';
 
 const IdxDmpSdk: IIdxDmpSdk = NativeModules.IdxDmpSdk
   ? NativeModules.IdxDmpSdk
