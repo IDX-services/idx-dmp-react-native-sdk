@@ -14,7 +14,7 @@ PODS:
   - hermes-engine (0.72.1):
     - hermes-engine/Pre-built (= 0.72.1)
   - hermes-engine/Pre-built (0.72.1)
-  - IdxDmpSdk (2.4.5)
+  - IdxDmpSdk (2.4.8)
   - libevent (2.1.12)
   - RCT-Folly (2021.07.22.00):
     - boost
@@ -315,8 +315,8 @@ PODS:
   - React-jsinspector (0.72.1)
   - React-logger (0.72.1):
     - glog
-  - react-native-idx-dmp-sdk (2.4.5):
-    - IdxDmpSdk (~> 2.4.5)
+  - react-native-idx-dmp-sdk (2.4.7):
+    - IdxDmpSdk (~> 2.4.8)
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - react-native-webview (13.8.2):
@@ -580,7 +580,7 @@ SPEC CHECKSUMS:
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 9df83855a0fd15ef8eb61694652bae636b0c466e
-  IdxDmpSdk: 141986319a699c84f8bb8a01c816d040cd3c4963
+  IdxDmpSdk: eb431908f7ed07f99ea3e79da43f8307e2000898
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: c52ee8fb2b35c1b54031dd8e92d88ad4dba8f2ce
@@ -597,7 +597,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 184eae1ecdedc7a083194bd9ff809c93f08fd34c
   React-jsinspector: d0b5bfd1085599265f4212034321e829bdf83cc0
   React-logger: b8103c9b04e707b50cdd2b1aeb382483900cbb37
-  react-native-idx-dmp-sdk: c62f7cf11308063bd91967f2713798a5dc863d39
+  react-native-idx-dmp-sdk: 29bff8d0fe0b43e41be205e30d82f6459cd27c6a
   react-native-webview: 19aba9db98e183484969202c1181a00159b7724b
   React-NativeModulesApple: 4f31a812364443cee6ef768d256c594ad3b20f53
   React-perflogger: 3d501f34c8d4b10cb75f348e43591765788525ad
