@@ -131,36 +131,45 @@ If your app uses `WebView` to display content but you want to request ads native
 
 The connector automatically listens to events from the web page and provides access to audiences calculated by the web SDK. Use this data in your Google ad request.
 
+If you have multiple webviews, you need to create a separate DMPWebViewConnector for each of them. DMPWebViewConnector is just a small bridge, so it has practically no overhead.
+
 ```js
 import { WebView } from 'react-native-webview';
 import { DMPWebViewConnector } from 'react-native-idx-dmp-sdk';
 
 // ...
 
-const webViewConnector = new DMPWebViewConnector(
+const webViewConnector1 = new DMPWebViewConnector(
+  'My react-native example app',
+  'v1.1.1'
+);
+
+const webViewConnector2 = new DMPWebViewConnector(
   'My react-native example app',
   'v1.1.1'
 );
 
 export default function App() {
   const handleGetAd = React.useCallback(() => {
-    const customData: string = webViewConnector.getCustomAdTargeting()
+    const customData1: string = webViewConnector1.getCustomAdTargeting()
+    const customData2: string = webViewConnector2.getCustomAdTargeting()
 
     // Make request to Google Ad server with customData
   }, [])
 
   return (
-    <WebView
-      injectedJavaScriptBeforeContentLoaded={webViewConnector.getSdkMetaData()}
-      onMessage={webViewConnector.handleMessage}
-    />
+    <>
+      <WebView
+        injectedJavaScriptBeforeContentLoaded={webViewConnector1.getSdkMetaData()}
+        onMessage={webViewConnector1.handleMessage}
+      />
+      <WebView
+        injectedJavaScriptBeforeContentLoaded={webViewConnector2.getSdkMetaData()}
+        onMessage={webViewConnector2.handleMessage}
+      />
+    </>
   )
 }
-```
-<WebView
-  injectedJavaScriptBeforeContentLoaded={webViewConnector.getSdkMetaData()}
-  onMessage={webViewConnector.handleMessage}
-/>
 ```
 
 ## Author
