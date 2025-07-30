@@ -1,6 +1,6 @@
 package com.idxdmpsdk;
 
-import android.content.Context;
+import android.app.Activity;
 import androidx.annotation.NonNull;
 import java.io.IOException;
 import java.util.Arrays;
@@ -19,12 +19,10 @@ import com.dxmdp.android.requests.event.EventRequestProperties;
 public class IdxDmpSdkModule extends ReactContextBaseJavaModule {
   public static final String NAME = "IdxDmpSdk";
 
-  private Context applicationContext;
   private DataManagerProvider dataManagerProvider;
 
   public IdxDmpSdkModule(ReactApplicationContext reactContext) {
     super(reactContext);
-    this.applicationContext = reactContext.getApplicationContext();
   }
 
   @Override
@@ -38,8 +36,16 @@ public class IdxDmpSdkModule extends ReactContextBaseJavaModule {
   // See https://reactnative.dev/docs/native-modules-android
   @ReactMethod
   public void initSdk(String providerId, String appName, String appVersion, Promise promise) {
+    Activity activity = getCurrentActivity();
+
+    if (activity == null) {
+      System.out.println("NO ACITIVITY");
+      promise.resolve(false);
+      return;
+    }
+
     dataManagerProvider = new DataManagerProvider(
-      applicationContext,
+      activity,
       providerId,
       appName,
       appVersion

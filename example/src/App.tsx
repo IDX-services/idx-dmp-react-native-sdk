@@ -43,7 +43,7 @@ export default function App() {
   const [adRequestData, setAdRequestData] = React.useState<string>('');
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
   const [formState, setFormState] = React.useState({
-    provider: 'a5beb245-2949-4a76-95f5-bddfc2ec171c',
+    provider: '13b1d22f-da5e-462c-9759-6c16a9c1a5dc',
     url: 'https://www.ynet.co.il/xtest/0,7340,L-8,00.html',
     title: 'IDX News Site - IDX',
     domain: 'https://www.ynet.co.il',

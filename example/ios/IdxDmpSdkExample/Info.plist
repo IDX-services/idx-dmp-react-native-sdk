@@ -53,5 +53,7 @@
 	<false/>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>It makes our adwords more compatibility with your interests</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>It makes our adwords more compatibility with your location</string>
 </dict>
 </plist>
