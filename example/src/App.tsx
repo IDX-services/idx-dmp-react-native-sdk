@@ -19,12 +19,12 @@ import {
   resetUserState,
   DMPWebViewConnector,
 } from 'react-native-idx-dmp-sdk';
-// import mobileAds, {
-//   GAMBannerAd,
-//   MaxAdContentRating,
-//   BannerAdSize,
-//   TestIds,
-// } from 'react-native-google-mobile-ads';
+import mobileAds, {
+  InterstitialAd,
+  MaxAdContentRating,
+  TestIds,
+  AdEventType,
+} from 'react-native-google-mobile-ads';
 import { WebView } from 'react-native-webview';
 
 const webViewConnector = new DMPWebViewConnector(
@@ -81,26 +81,39 @@ export default function App() {
       .then(setAdRequestData)
       .then(() => {
         setIsSubmitting(false);
-        // mobileAds()
-        //   .setRequestConfiguration({
-        //     // Update all future requests suitable for parental guidance
-        //     maxAdContentRating: MaxAdContentRating.PG,
-        //     // Indicates that you want your content treated as child-directed for purposes of COPPA.
-        //     tagForChildDirectedTreatment: true,
-        //     // Indicates that you want the ad request to be handled in a
-        //     // manner suitable for users under the age of consent.
-        //     tagForUnderAgeOfConsent: true,
-        //     // An array of test device IDs to allow.
-        //     testDeviceIdentifiers: ['EMULATOR'],
-        //   })
-        //   .then(() => {
-        //     // Request config successfully set!
-        //   });
+        mobileAds()
+          .setRequestConfiguration({
+            // Update all future requests suitable for parental guidance
+            maxAdContentRating: MaxAdContentRating.PG,
+            // Indicates that you want your content treated as child-directed for purposes of COPPA.
+            tagForChildDirectedTreatment: true,
+            // Indicates that you want the ad request to be handled in a
+            // manner suitable for users under the age of consent.
+            tagForUnderAgeOfConsent: true,
+            // An array of test device IDs to allow.
+            testDeviceIdentifiers: ['EMULATOR'],
+          })
+          .then(() => {
+            const interstitial = InterstitialAd.createForAdRequest(
+              TestIds.INTERSTITIAL,
+              {
+                requestNonPersonalizedAdsOnly: true,
+                serverSideVerificationOptions: {
+                  customData: adRequestData,
+                },
+              }
+            );
+            interstitial.addAdEventListener(AdEventType.LOADED, () => {
+              interstitial.show();
+            });
+
+            interstitial.load();
+          });
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [isReady, formState]);
+  }, [isReady, formState, adRequestData]);
 
   const handleResetState = React.useCallback(() => {
     try {
@@ -231,16 +244,6 @@ export default function App() {
             <Text style={styles.buttonText}>Reset state</Text>
           </TouchableOpacity>
         </View>
-        {/* <GAMBannerAd
-          unitId={TestIds.BANNER}
-          sizes={[BannerAdSize.ANCHORED_ADAPTIVE_BANNER]}
-          requestOptions={{
-            requestNonPersonalizedAdsOnly: true,
-            serverSideVerificationOptions: {
-              customData: 'dxseg=xaxwaxwax',
-            },
-          }}
-        /> */}
         <WebView
           // @ts-ignore-next-line
           ref={webviewRef}

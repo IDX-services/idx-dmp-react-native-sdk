@@ -41,7 +41,6 @@ public class IdxDmpSdkModule extends ReactContextBaseJavaModule {
     if (activity == null) {
       System.out.println("NO ACITIVITY");
       promise.resolve(false);
-      return;
     }
 
     dataManagerProvider = new DataManagerProvider(

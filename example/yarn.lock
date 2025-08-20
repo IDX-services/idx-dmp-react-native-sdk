@@ -1118,6 +1118,11 @@
   dependencies:
     regenerator-runtime "^0.13.11"
 
+"@babel/runtime@^7.12.5":
+  version "7.28.3"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.28.3.tgz#75c5034b55ba868121668be5d5bb31cc64e6e61a"
+  integrity sha512-9uIQ10o0WGdpP6GDhXcdOJPJuDgFtIDtN/9+ArJQ2NAfAmiuhTQdzkaTGR33v43GYS2UrSA0eX2pPPHoFVvpxA==
+
 "@babel/template@^7.0.0", "@babel/template@^7.22.5":
   version "7.22.5"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.22.5.tgz#0c8c4d944509875849bd0344ff0050756eefc6ec"
@@ -1175,6 +1180,11 @@
   integrity sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==
   dependencies:
     "@hapi/hoek" "^9.0.0"
+
+"@iabtcf/core@^1.5.3":
+  version "1.5.6"
+  resolved "https://registry.yarnpkg.com/@iabtcf/core/-/core-1.5.6.tgz#92568d89252fbf205aa65836703cb0a52e812382"
+  integrity sha512-u2q9thI9vLurYZdGtyJsDYOqoeLc4EgQsYGSc+UVibYII61B/ENJPZS6eFlML1F0hSoTR/goptpo5nGRDkKd2w==
 
 "@jest/create-cache-key-function@^29.2.1":
   version "29.5.0"
@@ -2388,6 +2398,11 @@ deprecated-react-native-prop-types@4.1.0:
     "@react-native/normalize-colors" "*"
     invariant "*"
     prop-types "*"
+
+dequal@^2.0.2:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/dequal/-/dequal-2.0.3.tgz#2644214f1997d39ed0ee0ece72335490a7ac67be"
+  integrity sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==
 
 destroy@1.2.0:
   version "1.2.0"
@@ -4603,6 +4618,14 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-google-mobile-ads@14.2.0:
+  version "14.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-google-mobile-ads/-/react-native-google-mobile-ads-14.2.0.tgz#b8e375bff88f97d29639037d4dcbff005a55ff37"
+  integrity sha512-oCoKaiK9LiFxEPazgxYbq0J/Ppw+peqF98ETLZdAvRkUVPtQAurgCAN8kznV3B/sBZq8P0zZPWTQpWYxMe1afw==
+  dependencies:
+    "@iabtcf/core" "^1.5.3"
+    use-deep-compare-effect "^1.8.1"
+
 react-native-webview@13.8.2:
   version "13.8.2"
   resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-13.8.2.tgz#a9f82b0312b1f54a45a7ebe40222fff72e7aeab5"
@@ -5310,6 +5333,14 @@ update-browserslist-db@^1.0.11:
   dependencies:
     escalade "^3.1.1"
     picocolors "^1.0.0"
+
+use-deep-compare-effect@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/use-deep-compare-effect/-/use-deep-compare-effect-1.8.1.tgz#ef0ce3b3271edb801da1ec23bf0754ef4189d0c6"
+  integrity sha512-kbeNVZ9Zkc0RFGpfMN3MNfaKNvcLNyxOAAd9O4CBZ+kCBXXscn9s/4I+8ytUER4RDpEYs5+O6Rs4PqiZ+rHr5Q==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+    dequal "^2.0.2"
 
 use-sync-external-store@^1.0.0:
   version "1.2.0"

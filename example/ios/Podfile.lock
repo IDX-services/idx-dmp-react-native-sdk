@@ -11,6 +11,9 @@ PODS:
     - ReactCommon/turbomodule/core (= 0.72.1)
   - fmt (6.2.1)
   - glog (0.3.5)
+  - Google-Mobile-Ads-SDK (11.7.0):
+    - GoogleUserMessagingPlatform (>= 1.1)
+  - GoogleUserMessagingPlatform (2.5.0)
   - IdxDmp (2.4.9)
   - RCT-Folly (2021.07.22.00):
     - boost
@@ -394,6 +397,11 @@ PODS:
     - React-jsi (= 0.72.1)
     - React-logger (= 0.72.1)
     - React-perflogger (= 0.72.1)
+  - RNGoogleMobileAds (14.2.0):
+    - Google-Mobile-Ads-SDK (= 11.7.0)
+    - GoogleUserMessagingPlatform (= 2.5.0)
+    - RCT-Folly (= 2021.07.22.00)
+    - React-Core
   - SocketRocket (0.6.1)
   - Yoga (1.14.0)
 
@@ -438,11 +446,14 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNGoogleMobileAds (from `../node_modules/react-native-google-mobile-ads`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
     - fmt
+    - Google-Mobile-Ads-SDK
+    - GoogleUserMessagingPlatform
     - IdxDmp
     - SocketRocket
 
@@ -525,6 +536,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNGoogleMobileAds:
+    :path: "../node_modules/react-native-google-mobile-ads"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -535,6 +548,8 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: 799b0e1a1561699cd0e424e24fe5624da38402f0
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
+  Google-Mobile-Ads-SDK: 204b517c9765169144cf39763c7f5d23c57a9db0
+  GoogleUserMessagingPlatform: 6b4f48a370e77ce121d034c908cc6ee4fdafaf13
   IdxDmp: d165aef33d114f1938f72a55199170ce3699aada
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: c52ee8fb2b35c1b54031dd8e92d88ad4dba8f2ce
@@ -570,6 +585,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 84546e214feb91c1b51081e59b87d7df4973f2d8
   React-utils: 0a70ea97d4e2749f336b450c082905be1d389435
   ReactCommon: 4cbf891957cb9fdb7193f85f8dded6c62e6d112e
+  RNGoogleMobileAds: fd328e0a206f0291cbde4a18dc0b9c4e9b2933ad
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 65286bb6a07edce5e4fe8c90774da977ae8fc009
 
